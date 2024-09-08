@@ -24,10 +24,9 @@ jobs:
     - name: Env Replace init-database.sh
       uses: Langsdorf/env-replace@v1.0.5
       with:
-        match-secrets: "true"
         #file: "./Src/Scripts/init-database.sh"
-        secrets: |
-          SA_PASSWORD=${{ secrets.SA_PASSWORD }}
+        key: "SA_PASSWORD"
+        value: ${{ secrets.SA_PASSWORD }}
                  
     - name: Docker Login
       # You may pin to the exact commit or the version.
