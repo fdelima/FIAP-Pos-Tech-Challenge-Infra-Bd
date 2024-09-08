@@ -16,24 +16,14 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
-        
-    - name: List files in the repository
-      run: |
-          ls ${{ github.workspace }}
-          cat ./Src/Scripts/init-database.sh
-          
-    - name: Find and Replace
+                  
+    - name: Set SECRET_SA_PASSWORD
       uses: thiagodnf/string-replacer@v1.0.2
       with:
         find: "SECRET_SA_PASSWORD"
         replace: "${{ secrets.SA_PASSWORD }}"
         include: |
-          ./Src/Scripts/init-database.sh
-            
-    - name: List files in the repository
-      run: |
-          ls ${{ github.workspace }}
-          cat ./Src/Scripts/init-database.sh          
+          ./Src/Scripts/init-database.sh      
           
     - name: Docker Login
       uses: docker/login-action@v3.3.0
