@@ -22,13 +22,15 @@ jobs:
           ls ${{ github.workspace }}
           cat ./.env
           
-    - name: Env Replace init-database.sh
-      uses: Langsdorf/env-replace@v1.0.5
+    - name: Find and Replace
+      uses: thiagodnf/string-replacer@v1.0.2
       with:
+        find: "SA_PASSWORD"
+        replace: "${{ secrets.SA_PASSWORD }}"
+        include: |
+          ./.env
         #file: "./Src/Scripts/init-database.sh"
-        key: "SA_PASSWORD"
-        value: ${{ secrets.SA_PASSWORD }}
-
+            
     - name: List files in the repository
       run: |
           ls ${{ github.workspace }}
