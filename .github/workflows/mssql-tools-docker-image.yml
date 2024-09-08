@@ -20,6 +20,7 @@ jobs:
     - name: List files in the repository
       run: |
           ls ${{ github.workspace }}
+          cat ./.env
           
     - name: Env Replace init-database.sh
       uses: Langsdorf/env-replace@v1.0.5
@@ -27,7 +28,12 @@ jobs:
         #file: "./Src/Scripts/init-database.sh"
         key: "SA_PASSWORD"
         value: ${{ secrets.SA_PASSWORD }}
-                 
+
+    - name: List files in the repository
+      run: |
+          ls ${{ github.workspace }}
+          cat ./.env          
+          
     - name: Docker Login
       # You may pin to the exact commit or the version.
       # uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567
