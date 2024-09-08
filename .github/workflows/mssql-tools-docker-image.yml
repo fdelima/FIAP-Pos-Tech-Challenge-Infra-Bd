@@ -32,5 +32,5 @@ jobs:
         # Image Build Version
         image_version: 'fase3'
         # Docker File Directory, Default Current Directory (.)
-        docker_file: './Src/Docker/Dockerfile'
+        docker_file: './FIAP-Pos-Tech-Challenge-Infra-Bd/Src/Docker/Dockerfile'
           
