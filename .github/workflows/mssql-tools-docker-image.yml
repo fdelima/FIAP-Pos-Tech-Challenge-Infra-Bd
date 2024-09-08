@@ -25,7 +25,7 @@ jobs:
       uses: Langsdorf/env-replace@v1.0.5
       with:
         match-secrets: "true"
-        file: "./Src/Scripts/init-database.sh"
+        #file: "./Src/Scripts/init-database.sh"
         secrets: |
           SA_PASSWORD=${{ secrets.SA_PASSWORD }}
                  
