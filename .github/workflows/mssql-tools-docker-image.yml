@@ -20,7 +20,7 @@ jobs:
     - name: Set SECRET_SA_PASSWORD
       uses: thiagodnf/string-replacer@v1.0.2
       with:
-        find: "SECRET_SA_PASSWORD"
+        find: "{{ secrets.SA_PASSWORD }}"
         replace: "${{ secrets.SA_PASSWORD }}"
         include: |
           ./Src/Scripts/init-database.sh      
