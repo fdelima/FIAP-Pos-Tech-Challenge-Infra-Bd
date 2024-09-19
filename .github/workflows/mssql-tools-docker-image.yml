@@ -2,9 +2,9 @@ name: Docker Image mssql-tools CI
 
 on:
   push:
-    branches: [ "develop", "features/fase3/pipeline" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "develop", "features/fase3/pipeline" ]
+    branches: [ "main" ]
 
 jobs:
 
