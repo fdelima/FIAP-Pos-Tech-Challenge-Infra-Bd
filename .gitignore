@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# terraform
+Src/Infra/Azure/.terraform/
+Src/Infra/Azure/.terraform.lock.hcl
+Src/Infra/Azure/main.destroy.tfplan
+Src/Infra/Azure/main.tfplan
+Src/Infra/Azure/terraform.tfstate
+Src/Infra/Azure/terraform.tfstate.backup
