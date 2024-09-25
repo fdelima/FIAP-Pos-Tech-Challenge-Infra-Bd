@@ -4,16 +4,22 @@ variable "resource_group_location" {
   default     = "Brazil South"
 }
 
-variable "resource_group_name_prefix" {
+variable "resource_group_name" {
   type        = string
-  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
-  default     = "rg"
+  description = "Prefix of the resource group name in your Azure subscription."
+  default     = "fiap-pos-tech-database-rg"
+}
+
+variable "mssql_server_name" {
+  type        = string
+  description = "The name of the SQL Database Server."
+  default     = "sql-tech-challenge-server"
 }
 
 variable "sql_db_name" {
   type        = string
   description = "The name of the SQL Database."
-  default     = "SampleDB"
+  default     = "tech-challenge-grupo-71"
 }
 
 variable "admin_username" {
@@ -26,5 +32,5 @@ variable "admin_password" {
   type        = string
   description = "The administrator password of the SQL logical server."
   sensitive   = true
-  default     = null
+  default     = "SqlServer2019!"
 }

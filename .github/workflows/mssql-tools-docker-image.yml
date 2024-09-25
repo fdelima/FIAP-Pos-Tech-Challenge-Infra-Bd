@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "develop", "features/fase3/pipeline" ]
   pull_request:
-    branches: [ "develop", "features/fase3/pipeline" ]
+    branches: [ "develop", "main" ]
 
 jobs:
 
@@ -16,7 +16,23 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
-                  
+
+    - name: Set SECRET_SERVER_NAME
+      uses: thiagodnf/string-replacer@v1.0.2
+      with:
+        find: "{{ secrets.SERVER_NAME }}"
+        replace: "${{ secrets.SERVER_NAME }}"
+        include: |
+          ./Src/Scripts/init-database.sh 
+
+    - name: Set SECRET_SA_USER
+      uses: thiagodnf/string-replacer@v1.0.2
+      with:
+        find: "{{ secrets.SA_USER }}"
+        replace: "${{ secrets.SA_USER }}"
+        include: |
+          ./Src/Scripts/init-database.sh           
+
     - name: Set SECRET_SA_PASSWORD
       uses: thiagodnf/string-replacer@v1.0.2
       with:
@@ -36,6 +52,7 @@ jobs:
       with:
         context: ./Src
         file: ./Src/Docker/Dockerfile
-        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3
+        #fixo, pois, sempre que trocar as secrets necessario alterar o nome da imagem a ser gerada.
+        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3 
         push: true        
           
