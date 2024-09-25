@@ -20,16 +20,16 @@ jobs:
     - name: Set SECRET_SERVER_NAME
       uses: thiagodnf/string-replacer@v1.0.2
       with:
-        find: "{{ secrets.SERVER_NAME }}"
-        replace: "${{ secrets.SERVER_NAME }}"
+        find: "{{ secrets.AZURE_SERVER_NAME }}"
+        replace: "${{ secrets.AZURE_SERVER_NAME }}"
         include: |
           ./Src/Scripts/init-database.sh 
 
     - name: Set SECRET_SA_USER
       uses: thiagodnf/string-replacer@v1.0.2
       with:
-        find: "{{ secrets.SA_USER }}"
-        replace: "${{ secrets.SA_USER }}"
+        find: "{{ secrets.AZURE_SA_USER }}"
+        replace: "${{ secrets.AZURE_SA_USER }}"
         include: |
           ./Src/Scripts/init-database.sh           
 
