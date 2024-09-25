@@ -53,6 +53,6 @@ jobs:
         context: ./Src
         file: ./Src/Docker/Dockerfile
         #fixo, pois, sempre que trocar as secrets necessario alterar o nome da imagem a ser gerada.
-        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3 
+        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3az 
         push: true        
           
