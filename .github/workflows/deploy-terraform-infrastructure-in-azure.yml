@@ -28,29 +28,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
           
-      - name: List files in the ./Src/Azure/Infra
-        working-directory: ./Src/Azure/Infra
+      - name: List files in the Src/Azure/Infra
+        working-directory: Src/Azure/Infra
         run: |
             ls
         
       - name: Terraform Init
-        working-directory: ./Src/Azure/Infra
+        working-directory: Src/Azure/Infra
         run: terraform init
         
       - name: Terraform Plan
-        working-directory: ./Src/Azure/Infra
+        working-directory: Src/Azure/Infra
         run: terraform plan -out main.tfplan
   
       - name: Terraform Apply
         id: terraformApply
-        working-directory: ./Src/Azure/Infra
+        working-directory: Src/Azure/Infra
         run: |
             if [ $(az group exists --name 'fiap-pos-tech-database-rg') = false ]; then 
               terraform apply main.tfplan        
             fi
 
       - name: Rollback Terraform Apply
-        working-directory: ./Src/Azure/Infra
+        working-directory: Src/Azure/Infra
         if: failure() && steps.terraformApply.outcome == 'failure'
         run: |
             terraform plan -destroy -out main.destroy.tfplan
