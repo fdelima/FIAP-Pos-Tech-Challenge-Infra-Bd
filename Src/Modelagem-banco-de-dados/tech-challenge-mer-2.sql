@@ -237,6 +237,48 @@ GO
 UPDATE pedido SET data_status_pagamento = GETDATE() WHERE status_pagamento IS NULL
 ALTER TABLE pedido ALTER COLUMN data_status_pagamento datetime NOT NULL
 GO
-
-
-
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_id')
+BEGIN
+    CREATE UNIQUE INDEX idx_pedido_id ON Pedido (IdPedido);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_id_cliente')
+BEGIN
+    CREATE INDEX idx_pedido_id_cliente ON Pedido (IdCliente);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_id_dispositivo')
+BEGIN
+    CREATE INDEX idx_pedido_id_dispositivo ON Pedido (IdDispositivo);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_data')
+BEGIN
+    CREATE INDEX idx_pedido_data ON Pedido (Data);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_status')
+BEGIN
+    CREATE INDEX idx_pedido_status ON Pedido (Status);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_status_pagamento')
+BEGIN
+    CREATE INDEX idx_pedido_status_pagamento ON Pedido (StatusPagamento);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_item_id_pedido')
+BEGIN
+    CREATE INDEX idx_pedido_item_id_pedido ON PedidoItem (IdPedido);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_cliente_id')
+BEGIN
+    CREATE UNIQUE INDEX idx_cliente_id ON Cliente (IdCliente);
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_dispositivo_id')
+BEGIN
+    CREATE UNIQUE INDEX idx_dispositivo_id ON Dispositivo (IdDispositivo);
+END
+GO
