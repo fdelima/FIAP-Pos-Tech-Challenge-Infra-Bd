@@ -32,5 +32,5 @@ variable "admin_password" {
   type        = string
   description = "The administrator password of the SQL logical server."
   sensitive   = true
-  default     = "SqlServer2019!"
+  default     = "{{ secrets.SA_PASSWORD }}"
 }

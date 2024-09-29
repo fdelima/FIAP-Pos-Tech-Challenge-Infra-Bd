@@ -28,6 +28,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
           
+      - name: Set SECRET_SA_PASSWORD
+        uses: thiagodnf/string-replacer@v1.0.2
+        with:
+          find: "{{ secrets.SA_PASSWORD }}"
+          replace: "${{ secrets.SA_PASSWORD }}"
+          include: |
+            ./Src/Infra/Azure/variables.tf 
+
       - name: List files in the ./Src/Infra/Azure
         working-directory: ./Src/Infra/Azure
         run: |
