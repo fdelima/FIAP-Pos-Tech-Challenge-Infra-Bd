@@ -16,7 +16,23 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
-                  
+
+    - name: Set SECRET_SERVER_NAME
+      uses: thiagodnf/string-replacer@v1.0.2
+      with:
+        find: "{{ secrets.AZURE_SERVER_NAME }}"
+        replace: "${{ secrets.AZURE_SERVER_NAME }}"
+        include: |
+          ./Src/Scripts/init-database.sh 
+
+    - name: Set SECRET_SA_USER
+      uses: thiagodnf/string-replacer@v1.0.2
+      with:
+        find: "{{ secrets.AZURE_SA_USER }}"
+        replace: "${{ secrets.AZURE_SA_USER }}"
+        include: |
+          ./Src/Scripts/init-database.sh           
+
     - name: Set SECRET_SA_PASSWORD
       uses: thiagodnf/string-replacer@v1.0.2
       with:
@@ -36,6 +52,7 @@ jobs:
       with:
         context: ./Src
         file: ./Src/Docker/Dockerfile
-        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3
+        #fixo, pois, sempre que trocar as secrets necessario alterar o nome da imagem a ser gerada.
+        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3az 
         push: true        
           
