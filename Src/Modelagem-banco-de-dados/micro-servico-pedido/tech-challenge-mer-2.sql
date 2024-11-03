@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[pedido](
 	[id_cliente] [uniqueidentifier] NULL,
 	[status] [nvarchar](50) NOT NULL,
 	[data_status_pedido] [datetime] NOT NULL,
-	[status_pagamento] [nvarchar(50)] NOT NULL,
+	[status_pagamento] [nvarchar](50) NOT NULL,
 	[data_status_pagamento] [datetime] NOT NULL,
  CONSTRAINT [PK_pedido] PRIMARY KEY CLUSTERED 
 (

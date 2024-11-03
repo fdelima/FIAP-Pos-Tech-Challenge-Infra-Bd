@@ -1,8 +1,8 @@
 name: Terraform In Azure with User-assigned Managed Identity 
 
-# on:
-#   push:
-#     branches: [ "main", "develop" ]
+on:
+  push:
+    branches: [ "fase_3" ]
 
 permissions:
   id-token: write

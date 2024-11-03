@@ -10,7 +10,7 @@ exit_code=$?
 if [ $exit_code -eq 0 ]; then
     echo "Executando part 2"
     sleep 5
-    /opt/mssql-tools/bin/sqlcmd -S {{ secrets.SERVER_NAME }} -U {{ secrets.SA_USER }} -P {{ secrets.SA_PASSWORD }} -d tech-challenge-grupo-71 -i /tmp/tech-challenge-mer-2.sql
+    /opt/mssql-tools/bin/sqlcmd -S {{ secrets.SERVER_NAME }} -U {{ secrets.SA_USER }} -P {{ secrets.SA_PASSWORD }} -d tech-challenge-micro-servico-cadastro-grupo-71 -i /tmp/tech-challenge-mer-2.sql
     echo "DER executado :: Successfully " $exit_code
 else
 for (( i = 1; i <= 3; i++ ))
@@ -23,7 +23,7 @@ do
     if [ $exit_code -eq 0 ]; then
         echo "Executando part 2"
         sleep 5
-        /opt/mssql-tools/bin/sqlcmd -S {{ secrets.SERVER_NAME }} -U {{ secrets.SA_USER }} -P {{ secrets.SA_PASSWORD }} -d tech-challenge-grupo-71 -i /tmp/tech-challenge-mer-2.sql
+        /opt/mssql-tools/bin/sqlcmd -S {{ secrets.SERVER_NAME }} -U {{ secrets.SA_USER }} -P {{ secrets.SA_PASSWORD }} -d tech-challenge-micro-servico-cadastro-grupo-71 -i /tmp/tech-challenge-mer-2.sql
         echo "DER executado :: Successfully " $?
         break
     fi
