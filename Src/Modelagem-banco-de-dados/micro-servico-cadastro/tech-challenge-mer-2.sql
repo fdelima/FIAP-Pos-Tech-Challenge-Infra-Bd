@@ -44,67 +44,6 @@ INSERT INTO [dbo].[dispositivo] VALUES ('053BE9A5-EE69-4EBE-8B5A-6C4BD86CE387','
 INSERT INTO [dbo].[dispositivo] VALUES ('1FD069C7-B496-4C3E-9A39-E990136B5282','TABLET MESA 03', 'SAMSUNG TAB S7', '123A')
 END
 GO
-/****** Object:  Table [dbo].[notificacao]    Script Date: 25/05/2024 15:55:42 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[notificacao]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[notificacao](
-	[id_notificacao] [uniqueidentifier] NOT NULL,
-	[data] [datetime] NOT NULL,
-	[mensagem] [nvarchar](50) NOT NULL,
-	[id_dispositivo] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_notificacao_1] PRIMARY KEY CLUSTERED 
-(
-	[id_notificacao] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-/****** Object:  Table [dbo].[pedido]    Script Date: 25/05/2024 15:55:42 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pedido]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[pedido](
-	[id_pedido] [uniqueidentifier] NOT NULL,
-	[data] [datetime] NOT NULL,
-	[id_dispositivo] [uniqueidentifier] NOT NULL,
-	[id_cliente] [uniqueidentifier] NULL,
-	[status] [nvarchar](50) NOT NULL,
-	[data_status_pedido] [datetime] NOT NULL,
- CONSTRAINT [PK_pedido] PRIMARY KEY CLUSTERED 
-(
-	[id_pedido] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-/****** Object:  Table [dbo].[pedido_item]    Script Date: 25/05/2024 15:55:42 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pedido_item]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[pedido_item](
-	[id_pedido_item] [uniqueidentifier] NOT NULL,
-	[data] [datetime] NOT NULL,
-	[id_pedido] [uniqueidentifier] NOT NULL,
-	[id_produto] [uniqueidentifier] NOT NULL,
-	[observacao] [nvarchar](50) NULL,
-	[quantidade] [int] NOT NULL,
- CONSTRAINT [PK_pedido_item] PRIMARY KEY CLUSTERED 
-(
-	[id_pedido_item] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
 /****** Object:  Table [dbo].[produto]    Script Date: 25/05/2024 15:55:42 ******/
 SET ANSI_NULLS ON
 GO
@@ -150,63 +89,6 @@ INSERT [dbo].[produto_imagens] VALUES (NEWID(), N'f724910b-ed6d-41a2-ab52-da4cd2
 END
 GO
 
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_data]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[pedido] ADD  CONSTRAINT [DF_pedido_data]  DEFAULT (getdate()) FOR [data]
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_data_status_pedido]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[pedido] ADD  CONSTRAINT [DF_pedido_data_status_pedido]  DEFAULT (getdate()) FOR [data_status_pedido]
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_item_data]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[pedido_item] ADD  CONSTRAINT [DF_pedido_item_data]  DEFAULT (getdate()) FOR [data]
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_item_quantidade]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[pedido_item] ADD  CONSTRAINT [DF_pedido_item_quantidade]  DEFAULT ((1)) FOR [quantidade]
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_notificacao_dispositivo1]') AND parent_object_id = OBJECT_ID(N'[dbo].[notificacao]'))
-ALTER TABLE [dbo].[notificacao]  WITH CHECK ADD  CONSTRAINT [FK_notificacao_dispositivo1] FOREIGN KEY([id_dispositivo])
-REFERENCES [dbo].[dispositivo] ([id_dispositivo])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_notificacao_dispositivo1]') AND parent_object_id = OBJECT_ID(N'[dbo].[notificacao]'))
-ALTER TABLE [dbo].[notificacao] CHECK CONSTRAINT [FK_notificacao_dispositivo1]
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_cliente]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido]'))
-ALTER TABLE [dbo].[pedido]  WITH CHECK ADD  CONSTRAINT [FK_pedido_cliente] FOREIGN KEY([id_cliente])
-REFERENCES [dbo].[cliente] ([id_cliente])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_cliente]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido]'))
-ALTER TABLE [dbo].[pedido] CHECK CONSTRAINT [FK_pedido_cliente]
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_dispositivo]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido]'))
-ALTER TABLE [dbo].[pedido]  WITH CHECK ADD  CONSTRAINT [FK_pedido_dispositivo] FOREIGN KEY([id_dispositivo])
-REFERENCES [dbo].[dispositivo] ([id_dispositivo])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_dispositivo]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido]'))
-ALTER TABLE [dbo].[pedido] CHECK CONSTRAINT [FK_pedido_dispositivo]
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_item_pedido]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido_item]'))
-ALTER TABLE [dbo].[pedido_item]  WITH CHECK ADD  CONSTRAINT [FK_pedido_item_pedido] FOREIGN KEY([id_pedido])
-REFERENCES [dbo].[pedido] ([id_pedido])
-ON DELETE CASCADE
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_item_pedido]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido_item]'))
-ALTER TABLE [dbo].[pedido_item] CHECK CONSTRAINT [FK_pedido_item_pedido]
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_item_produto]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido_item]'))
-ALTER TABLE [dbo].[pedido_item]  WITH CHECK ADD  CONSTRAINT [FK_pedido_item_produto] FOREIGN KEY([id_produto])
-REFERENCES [dbo].[produto] ([id_produto])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_item_produto]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido_item]'))
-ALTER TABLE [dbo].[pedido_item] CHECK CONSTRAINT [FK_pedido_item_produto]
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_produto_imagens_produto]') AND parent_object_id = OBJECT_ID(N'[dbo].[produto_imagens]'))
 ALTER TABLE [dbo].[produto_imagens]  WITH CHECK ADD  CONSTRAINT [FK_produto_imagens_produto] FOREIGN KEY([id_produto])
 REFERENCES [dbo].[produto] ([id_produto])
@@ -214,56 +96,4 @@ ON DELETE CASCADE
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_produto_imagens_produto]') AND parent_object_id = OBJECT_ID(N'[dbo].[produto_imagens]'))
 ALTER TABLE [dbo].[produto_imagens] CHECK CONSTRAINT [FK_produto_imagens_produto]
-GO
-IF NOT EXISTS(SELECT 1 FROM sys.columns 
-          WHERE Name = N'status_pagamento'
-          AND Object_ID = Object_ID(N'dbo.pedido'))
-BEGIN
-	ALTER TABLE dbo.pedido ADD status_pagamento nvarchar(50);
-END
-GO
-UPDATE pedido SET status_pagamento = 'PENDENTE' WHERE status_pagamento IS NULL
-ALTER TABLE pedido ALTER COLUMN status_pagamento nvarchar(50) NOT NULL
-GO
-IF NOT EXISTS(SELECT 1 FROM sys.columns 
-          WHERE Name = N'data_status_pagamento'
-          AND Object_ID = Object_ID(N'dbo.pedido'))
-BEGIN
-	ALTER TABLE dbo.pedido ADD data_status_pagamento datetime;
-	ALTER TABLE dbo.pedido ADD CONSTRAINT
-		DF_pedido_data_status_pagamento DEFAULT getdate() FOR data_status_pagamento;
-END
-GO
-UPDATE pedido SET data_status_pagamento = GETDATE() WHERE status_pagamento IS NULL
-ALTER TABLE pedido ALTER COLUMN data_status_pagamento datetime NOT NULL
-GO
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_id_cliente')
-BEGIN
-    CREATE INDEX idx_pedido_id_cliente ON pedido (id_cliente);
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_id_dispositivo')
-BEGIN
-    CREATE INDEX idx_pedido_id_dispositivo ON pedido (id_dispositivo);
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_data')
-BEGIN
-    CREATE INDEX idx_pedido_data ON pedido ([data]);
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_status')
-BEGIN
-    CREATE INDEX idx_pedido_status ON pedido ([status]);
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_status_pagamento')
-BEGIN
-    CREATE INDEX idx_pedido_status_pagamento ON pedido (status_pagamento);
-END
-GO
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_item_id_pedido')
-BEGIN
-    CREATE INDEX idx_pedido_item_id_pedido ON pedido_item (id_pedido);
-END
 GO

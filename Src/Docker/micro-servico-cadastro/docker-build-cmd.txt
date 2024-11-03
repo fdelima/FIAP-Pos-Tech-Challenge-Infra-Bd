@@ -1,0 +1,1 @@
+docker build -t fdelima/fiap-pos-techchallenge-micro-servico-cadastro-gurpo-71-scripts-database:fase4 "."
