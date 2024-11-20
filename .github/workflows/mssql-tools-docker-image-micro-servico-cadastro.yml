@@ -15,11 +15,11 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Set SECRET_SERVER_NAME
+    - name: Set SECRET_TEST_SERVER_NAME
       uses: thiagodnf/string-replacer@v1.0.2
       with:
-        find: "{{ secrets.SERVER_NAME }}"
-        replace: "${{ secrets.SERVER_NAME }}"
+        find: "{{ secrets.TEST_SERVER_NAME }}"
+        replace: "${{ secrets.TEST_SERVER_NAME }}"
         include: |
           ./Src/Scripts/init-database.sh 
 
@@ -51,6 +51,6 @@ jobs:
         context: ./Src
         file: ./Src/Docker/micro-servico-cadastro/Dockerfile
         #fixo, pois, sempre que trocar as secrets necessario alterar o nome da imagem a ser gerada.
-        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-micro-servico-cadastro-gurpo-71-scripts-database:fase4 
+        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-micro-servico-cadastro-gurpo-71-scripts-database:fase4-test 
         push: true        
           
