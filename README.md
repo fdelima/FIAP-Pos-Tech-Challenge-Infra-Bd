@@ -16,3 +16,4 @@ Intelligence e análise de dados.
 # Diagrama entidade relacionamento (DER)
 
 ![image](Documentacao/tech-challenge-der.png)
+
