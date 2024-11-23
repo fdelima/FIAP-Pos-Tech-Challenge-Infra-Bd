@@ -19,7 +19,7 @@ jobs:
       uses: thiagodnf/string-replacer@v1.0.2
       with:
         find: "{{ secrets.TEST_SERVER_NAME }}"
-        replace: "${{ secrets.TEST_SERVER_NAME }}"
+        replace: "sqlserver-db-cadastro-test"
         include: |
           ./Src/Scripts/micro-servico-cadastro/init-database.sh 
 
