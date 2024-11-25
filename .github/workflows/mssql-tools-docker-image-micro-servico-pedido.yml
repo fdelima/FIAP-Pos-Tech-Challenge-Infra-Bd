@@ -19,7 +19,7 @@ jobs:
       uses: thiagodnf/string-replacer@v1.0.2
       with:
         find: "{{ secrets.TEST_SERVER_NAME }}"
-        replace: "sqlserver-db-pedido-test"
+        replace: "sqlserver-db-pedido-component-test"
         include: |
           ./Src/Scripts/micro-servico-pedido/init-database.sh 
 
@@ -51,6 +51,6 @@ jobs:
         context: ./Src
         file: ./Src/Docker/micro-servico-pedido/Dockerfile
         #fixo, pois, sempre que trocar as secrets necessario alterar o nome da imagem a ser gerada.
-        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-micro-servico-pedido-gurpo-71-scripts-database:fase4-test 
+        tags: ${{ secrets.DOCKER_USERNAME }}/fiap-pos-techchallenge-micro-servico-pedido-gurpo-71-scripts-database:fase4-component-test 
         push: true        
           
