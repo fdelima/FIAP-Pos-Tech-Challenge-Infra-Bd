@@ -40,6 +40,27 @@ CREATE TABLE [dbo].[pedido](
 ) ON [PRIMARY]
 END
 GO
+/****** Object:  Table [dbo].[pedido_item]    Script Date: 25/05/2024 15:55:42 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pedido_item]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[pedido_item](
+	[id_pedido_item] [uniqueidentifier] NOT NULL,
+	[data] [datetime] NOT NULL,
+	[id_pedido] [uniqueidentifier] NOT NULL,
+	[id_produto] [uniqueidentifier] NOT NULL,
+	[observacao] [nvarchar](50) NULL,
+	[quantidade] [int] NOT NULL,
+ CONSTRAINT [PK_pedido_item] PRIMARY KEY CLUSTERED 
+(
+	[id_pedido_item] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_data]') AND type = 'D')
 BEGIN
@@ -51,6 +72,28 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF
 BEGIN
 ALTER TABLE [dbo].[pedido] ADD  CONSTRAINT [DF_pedido_data_status_pedido]  DEFAULT (getdate()) FOR [data_status_pedido]
 END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_item_data]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[pedido_item] ADD  CONSTRAINT [DF_pedido_item_data]  DEFAULT (getdate()) FOR [data]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_item_quantidade]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[pedido_item] ADD  CONSTRAINT [DF_pedido_item_quantidade]  DEFAULT ((1)) FOR [quantidade]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_item_pedido]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido_item]'))
+ALTER TABLE [dbo].[pedido_item]  WITH CHECK ADD  CONSTRAINT [FK_pedido_item_pedido] FOREIGN KEY([id_pedido])
+REFERENCES [dbo].[pedido] ([id_pedido])
+ON DELETE CASCADE
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_pedido_item_pedido]') AND parent_object_id = OBJECT_ID(N'[dbo].[pedido_item]'))
+ALTER TABLE [dbo].[pedido_item] CHECK CONSTRAINT [FK_pedido_item_pedido]
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DF_pedido_data_status_pagamento]') AND type = 'D')
@@ -86,5 +129,11 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_status_pagamento')
 BEGIN
     CREATE INDEX idx_pedido_status_pagamento ON pedido (status_pagamento);
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'idx_pedido_item_id_pedido')
+BEGIN
+    CREATE INDEX idx_pedido_item_id_pedido ON pedido_item (id_pedido);
 END
 GO
