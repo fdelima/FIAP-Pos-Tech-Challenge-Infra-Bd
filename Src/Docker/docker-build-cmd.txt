@@ -1,1 +1,0 @@
-docker build -t fdelima/fiap-pos-techchallenge-gurpo-71-scripts-database:fase3 "."
