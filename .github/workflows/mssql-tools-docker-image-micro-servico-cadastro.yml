@@ -2,7 +2,7 @@ name: mssql-tools-docker-image-micro-servico-cadastro
 
 on:
   push:
-    branches: [ main, "develop" ]
+    branches: [ "fase_4" ]
 
 jobs:
 

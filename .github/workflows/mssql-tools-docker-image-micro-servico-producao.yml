@@ -2,7 +2,7 @@ name: mssql-tools-docker-image-micro-servico-producao
 
 on:
   push:
-    branches: [ main, "develop" ]
+    branches: branches: [ "fase_4" ]
 
 jobs:
 
