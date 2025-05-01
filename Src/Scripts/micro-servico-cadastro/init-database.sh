@@ -1,4 +1,21 @@
 #!/bin/bash
+
+#AZURE_CLIENT_ID: {{ secrets.AZURE_CLIENT_ID }}
+#AZURE_TENANT_ID: {{ secrets.AZURE_TENANT_ID }}
+#AZURE_SUBSCRIPTION_ID: {{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+#AZURE_SA_USER: {{ secrets.AZURE_SA_USER }}
+#AZURE_SERVER_NAME: {{ secrets.AZURE_SERVER_NAME }}
+
+#DOCKER_USERNAME: {{ secrets.DOCKER_USERNAME }}
+#DOCKER_TOKEN: {{ secrets.DOCKER_TOKEN }}
+
+#SERVER_NAME: {{ secrets.SERVER_NAME }}
+#TEST_SERVER_NAME: {{ secrets.TEST_SERVER_NAME }}
+#SA_USER: {{ secrets.SA_USER }}
+#SA_PASSWORD: {{ secrets.SA_PASSWORD }}
+
+
 echo "Aguarde até a execução do DER"
 echo "Aguardando serviço sqlserver ficar pronto."
 sleep 5

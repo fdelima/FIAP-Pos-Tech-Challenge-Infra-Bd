@@ -1,4 +1,0 @@
-# FIAP-Pos-Tech-Challenge-Infra-Bd
-FIAP Pos Tech Challenge Infraestrutura Banco de dados
-
-Colocar aqui o scripts para provisionamento do banco de dados na nuvem.
